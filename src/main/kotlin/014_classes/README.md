@@ -1,70 +1,58 @@
-# Classes
+# 014 — Classes
 
-A class defines a type by grouping state and behavior. Instances of `Product` hold product data and know how to calculate a discounted price.
+A class defines a type by grouping related state and behavior. Each constructor call creates an object of that type.
 
-## Runnable example
+## Basic syntax
+
+```kotlin
+class Product(val id: Int, var price: Double) {
+    fun discounted(percent: Int): Double =
+        price * (100 - percent) / 100
+}
+```
+
+`id` and `price` are properties. `discounted` is a member function and can use those properties.
+
+```kotlin
+val product = Product(7, 100.0)
+println(product.discounted(20)) // 80.0
+```
+
+`Product(...)` calls the primary constructor. Dot syntax accesses an object's properties and functions.
+
+## Important rules
+
+- A class is a type; an object is one instance of that class.
+- A constructor parameter becomes a property only when declared with `val` or `var`.
+- Member functions can access the current object's properties.
+- Kotlin classes and members are final by default.
+- Keep a class focused on one clear responsibility.
+
+## Common mistakes
+
+- Assuming every constructor parameter is stored as a property.
+- Creating public mutable properties without considering valid values.
+- Treating a class as only a collection of unrelated helper functions.
+
+## Interview questions
+
+**Class versus object?** A class defines a type; an object is an instance with its own state.
+
+**When is a constructor parameter a property?** When it uses `val` or `var`.
+
+**Are Kotlin classes open for inheritance by default?** No. They are final unless marked otherwise.
+
+## Quick revision
+
+- `class` declares a type.
+- Constructor calls create objects.
+- Properties hold state.
+- Member functions define behavior.
+
+## Source code
 
 [Classes.kt](./Classes.kt)
 
-## Syntax
+## Next lesson
 
-| Syntax | Meaning |
-|---|---|
-| `class Product(...)` | Declares a class and primary constructor. |
-| `val id: Int` | Creates a read-only property. |
-| `var price: Double` | Creates a mutable property. |
-| `fun discounted(...)` | Declares a member function. |
-| `Product(7, 100.0)` | Constructs an instance. |
-
-## Step-by-step walkthrough
-
-1. The constructor creates a product with ID 7 and price 100.
-2. `discounted(20)` computes 80 percent of the price.
-3. The result is printed.
-
-## Expected output
-
-```text
-80.0
-```
-
-## Important rules and behavior
-
-- Kotlin classes are final by default.
-- A constructor parameter becomes a property only with `val` or `var`.
-- Member functions can access instance properties.
-- Keep responsibilities cohesive; a class should model one clear concept.
-
-## Common mistakes and edge cases
-
-- Assuming every constructor parameter is a property.
-- Adding `open` without a real inheritance requirement.
-- Using mutable public properties without invariants.
-
-## Kotlin compared with Java
-
-Kotlin can declare constructor, properties, and accessors in one concise header. Java generally needs explicit fields and methods.
-
-## Android relevance
-
-Classes model repositories, use cases, state holders, and UI models. Framework-owned components have additional lifecycle rules.
-
-## Interview questions and answers
-
-### 1. Are Kotlin classes open by default?
-
-No. Classes and overridable members must be marked `open` unless abstract.
-
-### 2. When is a constructor parameter a property?
-
-Only when declared with `val` or `var`.
-
-### 3. Class versus object?
-
-A class is a blueprint; each constructor call creates an instance with its own state.
-
-## Practice
-
-- Predict the output before running the example.
-- Explain every commented compile-time or runtime error.
-- Change one input and explain whether the behavior changes at compile time or runtime.
+015 — Properties

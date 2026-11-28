@@ -1,29 +1,46 @@
-# 001 - Introduction
+# 001 — Introduction
 
-Introduction is part of the course learning sequence. Its detailed implementation belongs here when the prerequisite topics are in place.
+Kotlin is a statically typed language with concise syntax and strong Java interoperability. This playbook teaches the language through small runnable examples in the original course order.
 
-## Source guide
+## How to use the playbook
 
-- No runnable example is included yet; this page preserves the learning sequence.
+For each technical lesson:
 
-## Learning goals
+1. Read the short explanation.
+2. Predict the example's output.
+3. Run its `main` function.
+4. Change one value and observe the result.
+5. Review the common rules and interview questions.
 
-- Explain the problem this concept solves.
-- Identify its important syntax and type-safety rules.
-- Predict the behavior of the adjacent example before running it.
-- Compare the Kotlin design with the closest Java equivalent.
-- Identify an Android use case and a situation where the feature would be a poor choice.
+The examples focus on one concept at a time. Later lessons build on earlier syntax, so following the numbered sequence is recommended.
 
-## Interview preview
+## What you need
 
-### What should a strong answer include?
+- JDK 21
+- IntelliJ IDEA or another Kotlin-capable IDE
+- The included Gradle wrapper
 
-A definition, the compiler or runtime behavior, one short example, a limitation, and a practical trade-off. Avoid describing JVM implementation details as universal Kotlin language rules.
+## Useful commands
 
-### What should you inspect in the example?
+On Windows:
 
-Follow object creation and function calls in execution order. Note declared types, mutation, generated behavior, cancellation or collection boundaries where applicable, and every place that can fail.
+```powershell
+.\gradlew.bat build
+```
 
-### How does this relate to Java and Android?
+On macOS or Linux:
 
-Compare source-level guarantees first, then JVM representation. For Android, consider lifecycle, main-thread safety, allocation, and whether state remains observable and predictable.
+```bash
+./gradlew build
+```
+
+## Quick revision
+
+- Kotlin is statically typed.
+- Examples are small and independently runnable.
+- Lessons follow the course sequence.
+- Predict, run, and then experiment.
+
+## Next lesson
+
+002 — Download and Install IntelliJ IDEA

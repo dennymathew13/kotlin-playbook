@@ -1,4 +1,5 @@
-﻿package lesson003.helloworld
+package lesson003.helloworld
+
 fun main() {
-    println("Hello, Kotlin!") // Expected: Hello, Kotlin!
+    println("Hello, Kotlin!") // Hello, Kotlin!
 }

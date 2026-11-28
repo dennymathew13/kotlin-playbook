@@ -1,71 +1,68 @@
-# While Loop
+# 010 — While Loop
 
-`while` repeats while a condition is true. `do-while` executes the body before its first condition check.
+A `while` loop repeats while its condition is true. A `do-while` loop runs its body before checking the condition.
 
-## Runnable example
+## `while`
 
-[WhileLoop.kt](./WhileLoop.kt)
+```kotlin
+var attempt = 1
 
-## Syntax
+while (attempt <= 3) {
+    println("Attempt $attempt")
+    attempt++
+}
+```
 
-| Syntax | Meaning |
-|---|---|
-| `while (condition) { ... }` | Pre-test loop; may execute zero times. |
-| `do { ... } while (condition)` | Post-test loop; executes at least once. |
-| `attempts++` | Increments by one. |
-
-## Step-by-step walkthrough
-
-1. The first loop prints attempts 1 through 3.
-2. The polling loop first assigns `null`, then `ready`.
-3. Only after each body execution is the `do-while` condition checked.
-
-## Expected output
+Output:
 
 ```text
 Attempt 1
 Attempt 2
 Attempt 3
-ready
 ```
 
-## Important rules and behavior
+The condition is checked first, so a `while` body may run zero times.
 
-- A loop condition must be Boolean.
-- Update the state used by the condition or the loop may never finish.
-- `break` exits the nearest loop; `continue` starts its next iteration.
-- Loops are statements and do not produce a useful value.
+## `do-while`
 
-## Common mistakes and edge cases
+```kotlin
+var countdown = 0
 
-- Forgetting the increment.
-- Blocking Android's main thread with a polling loop.
-- Using a loop where a collection operation communicates intent better.
+do {
+    println(countdown)
+    countdown--
+} while (countdown > 0)
+```
 
-## Kotlin compared with Java
+This prints `0` once because the condition is checked after the body.
 
-The syntax is similar to Java, but Kotlin conditions never coerce numbers or references to Boolean.
+## Important rules
 
-## Android relevance
+- Conditions must be Boolean expressions.
+- Update condition-related state or the loop may never finish.
+- `break` exits the nearest loop.
+- `continue` starts the next iteration.
+- Use `do-while` only when one execution is always required.
 
-Never perform long or blocking loops on the main thread. Use lifecycle-aware coroutines for repeated asynchronous work.
+## Interview questions
 
-## Interview questions and answers
+**Which loop always runs at least once?** `do-while`.
 
-### 1. Which loop always runs at least once?
+**Can a `while` loop run zero times?** Yes.
 
-`do-while`, because it checks after the body.
+**What commonly causes an infinite loop?** A condition that never becomes false.
 
-### 2. What is the risk in this loop style?
+## Quick revision
 
-An unchanged condition can create an infinite loop.
+- `while`: check, then run.
+- `do-while`: run, then check.
+- Keep loop updates obvious.
+- Use `break` and `continue` sparingly.
 
-### 3. Do loops return collected values?
+## Source code
 
-No. Build a collection explicitly or use collection operators.
+[WhileLoop.kt](./WhileLoop.kt)
 
-## Practice
+## Next lesson
 
-- Predict the output before running the example.
-- Explain every commented compile-time or runtime error.
-- Change one input and explain whether the behavior changes at compile time or runtime.
+011 — For Loops and Ranges

@@ -1,29 +1,46 @@
-# 002 - Download and Install IntelliJ IDEA
+# 002 — Download and Install IntelliJ IDEA
 
-Download and Install IntelliJ IDEA is part of the course learning sequence. Its detailed implementation belongs here when the prerequisite topics are in place.
+IntelliJ IDEA provides Kotlin editing, code completion, Gradle support, and a run action for each `main` function.
 
-## Source guide
+## Setup
 
-- No runnable example is included yet; this page preserves the learning sequence.
+1. Install a current IntelliJ IDEA release from JetBrains.
+2. Install JDK 21 if it is not already available.
+3. Open this repository as a Gradle project.
+4. Allow Gradle to finish importing.
+5. Open a lesson's Kotlin file and run its `main` function.
 
-## Learning goals
+The repository includes the Gradle wrapper, so a separate Gradle installation is not required.
 
-- Explain the problem this concept solves.
-- Identify its important syntax and type-safety rules.
-- Predict the behavior of the adjacent example before running it.
-- Compare the Kotlin design with the closest Java equivalent.
-- Identify an Android use case and a situation where the feature would be a poor choice.
+## Verify from the terminal
 
-## Interview preview
+On Windows:
 
-### What should a strong answer include?
+```powershell
+.\gradlew.bat build
+```
 
-A definition, the compiler or runtime behavior, one short example, a limitation, and a practical trade-off. Avoid describing JVM implementation details as universal Kotlin language rules.
+On macOS or Linux:
 
-### What should you inspect in the example?
+```bash
+./gradlew build
+```
 
-Follow object creation and function calls in execution order. Note declared types, mutation, generated behavior, cancellation or collection boundaries where applicable, and every place that can fail.
+A successful build confirms that the JDK and project configuration are working.
 
-### How does this relate to Java and Android?
+## Common problems
 
-Compare source-level guarantees first, then JVM representation. For Android, consider lifecycle, main-thread safety, allocation, and whether state remains observable and predictable.
+- **Wrong JDK:** set the project and Gradle JVM to JDK 21.
+- **Gradle import still running:** wait for synchronization to finish before running code.
+- **Wrapper not executable on macOS/Linux:** run `chmod +x gradlew` once.
+
+## Quick revision
+
+- Open the repository as a Gradle project.
+- Use JDK 21.
+- Run examples from their `main` functions.
+- Use the included Gradle wrapper for builds.
+
+## Next lesson
+
+003 — Hello World

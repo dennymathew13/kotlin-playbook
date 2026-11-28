@@ -1,81 +1,68 @@
-# For Loop and Ranges
+# 011 — For Loops and Ranges
 
-Kotlin `for` iterates over anything that follows the iteration convention. Ranges and progressions describe ordered numeric traversal.
+A `for` loop visits each value in a range, progression, or collection. Ranges make common counting loops concise.
 
-## Runnable example
+## Inclusive and exclusive ranges
 
-[ForLoopandRanges.kt](./ForLoopandRanges.kt)
+```kotlin
+for (day in 1..3) {
+    println("Day $day")
+}
+```
 
-## Syntax
+`1..3` includes both 1 and 3. Use `..<` to exclude the upper bound:
 
-| Syntax | Meaning |
-|---|---|
-| `1..3` | Closed range including 1 and 3. |
-| `0..<3` | Half-open range including 0 and excluding 3. |
-| `downTo` | Creates a descending progression. |
-| `step 2` | Changes the progression increment magnitude. |
-| `withIndex()` | Provides index-value pairs for destructuring. |
+```kotlin
+for (index in 0..<3) {
+    println("Index $index")
+}
+```
 
-## Step-by-step walkthrough
+This prints indices 0, 1, and 2.
 
-1. The first loop prints days 1-3.
-2. The half-open range prints indices 0-2.
-3. The countdown visits 5, 3, and 1.
-4. `withIndex` supplies each product and its index.
+## Descending progressions
 
-## Expected output
+```kotlin
+for (countdown in 5 downTo 1 step 2) {
+    println(countdown)
+}
+```
+
+Output:
 
 ```text
-Day 1
-Day 2
-Day 3
-Index 0
-Index 1
-Index 2
 5
 3
 1
-0: Phone
-1: Case
 ```
 
-## Important rules and behavior
+## Important rules
 
-- Kotlin has no C-style `for(init; test; update)` loop.
 - `..` includes both endpoints.
-- A positive `step` is used with `downTo`; the direction is already descending.
-- Prefer direct element iteration when the index is unnecessary.
+- `..<` excludes the upper endpoint.
+- `downTo` creates a descending progression.
+- `step` changes the distance between visited values and must be positive.
+- Kotlin has no C-style `for (start; condition; update)` loop.
 
-## Common mistakes and edge cases
+## Interview questions
 
-- Using `..` when an exclusive upper bound is required.
-- Indexing a list manually when direct iteration is clearer.
-- Assuming every range materializes a list of values.
+**Does `1..5` include 5?** Yes.
 
-## Kotlin compared with Java
+**How do you exclude the upper bound?** Use `..<`, such as `0..<size`.
 
-Kotlin's `for` resembles enhanced-for, while progressions replace many counter-based loops.
+**Is a range a materialized list?** No. It represents bounds and iteration behavior.
 
-## Android relevance
+## Quick revision
 
-Useful for small deterministic iteration; avoid allocations and expensive work in hot drawing or recomposition paths.
+- `for (item in values)` iterates.
+- `1..3` is inclusive.
+- `0..<3` excludes 3.
+- `downTo` and `step` control a progression.
 
-## Interview questions and answers
+## Source code
 
-### 1. Does `1..5` include 5?
+[ForLoopsAndRanges.kt](./ForLoopsAndRanges.kt)
 
-Yes. Use `1..<5` or `1 until 5` to exclude it.
+## Next lesson
 
-### 2. Is a range necessarily a `List`?
-
-No. Ranges/progressions represent bounds and iteration behavior.
-
-### 3. How do you get both index and value?
-
-Use `withIndex()` or `forEachIndexed`.
-
-## Practice
-
-- Predict the output before running the example.
-- Explain every commented compile-time or runtime error.
-- Change one input and explain whether the behavior changes at compile time or runtime.
+012 — `in` Keyword

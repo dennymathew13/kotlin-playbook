@@ -1,70 +1,62 @@
-# Property Accessors
+# 023 — Property Accessors
 
-Custom accessors preserve property syntax while adding validation or computation. `field` accesses compiler-generated backing storage inside an accessor.
+Properties use getters and, for `var`, setters. Custom accessors can calculate or normalize a value while keeping normal property syntax.
 
-## Runnable example
+## Custom setter and backing field
+
+```kotlin
+var celsius: Double = celsius
+    set(value) {
+        field = if (value < -273.15) -273.15 else value
+    }
+```
+
+Inside an accessor, `field` refers to that property's backing storage. Writing `celsius = value` inside this setter would call the setter again and recurse.
+
+## Computed property
+
+```kotlin
+val fahrenheit: Double
+    get() = celsius * 9 / 5 + 32
+```
+
+This getter calculates its result each time. It does not need its own backing field.
+
+```kotlin
+val temperature = Temperature(20.0)
+temperature.celsius = 25.0
+println(temperature.fahrenheit) // 77.0
+```
+
+## Important rules
+
+- `val` has a getter; `var` has a getter and setter.
+- `field` is available only inside a property accessor when backing storage exists.
+- A computed property may have no backing field.
+- Use `field`, not the property name, to store a value inside its setter.
+- Avoid surprising side effects or expensive work in getters.
+
+## Interview questions
+
+**What is a backing field?** Compiler-provided storage used by a property.
+
+**Why use `field` in a setter?** Assigning the property name would invoke the setter recursively.
+
+**Can a `val` have a custom getter?** Yes.
+
+**Does every property have a backing field?** No. A purely computed property does not need one.
+
+## Quick revision
+
+- `get()` controls reads.
+- `set(value)` controls writes.
+- `field` accesses stored data.
+- Computed properties calculate on access.
+
+## Source code
 
 [PropertyAccessors.kt](./PropertyAccessors.kt)
 
-## Syntax
+## Next lesson
 
-| Syntax | Meaning |
-|---|---|
-| `get() = ...` | Defines a custom getter. |
-| `set(value) { ... }` | Defines a custom setter. |
-| `field` | Refers to the backing field inside an accessor. |
-| `require(...)` | Throws `IllegalArgumentException` when its condition is false. |
-
-## Step-by-step walkthrough
-
-1. The initial Celsius value is stored.
-2. The setter validates 25.0 and writes it through `field`.
-3. The Fahrenheit getter computes from the current Celsius value.
-4. No Fahrenheit backing field is needed.
-
-## Expected output
-
-```text
-77.0
-```
-
-## Important rules and behavior
-
-- `field` is available only inside an accessor that has backing storage.
-- A computed property may have no backing field.
-- A setter cannot be declared for `val`.
-- Avoid expensive or surprising work in getters.
-
-## Common mistakes and edge cases
-
-- Writing `celsius = value` inside its setter, causing recursive calls.
-- Assuming every property consumes storage.
-- Using a getter for an operation with important side effects.
-
-## Kotlin compared with Java
-
-Kotlin groups accessors into a property declaration and exposes property syntax; JVM methods are generated as appropriate.
-
-## Android relevance
-
-Derived UI values can be properties, but expensive getters may run repeatedly during rendering or recomposition.
-
-## Interview questions and answers
-
-### 1. When is a backing field generated?
-
-When a default accessor is used or a custom accessor references `field`.
-
-### 2. Why use `field` in the setter?
-
-Assigning the property name would call the setter recursively.
-
-### 3. Can a `val` have a custom getter?
-
-Yes; it can compute a value on every read.
-
-## Practice
-
-- Predict the output before running the example.
-- Explain every commented compile-time or runtime error.
-- Change one input and explain whether the behavior changes at compile time or runtime.
+024 — Extension Functions

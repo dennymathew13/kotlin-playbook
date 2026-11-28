@@ -1,73 +1,63 @@
-# Lists
+# 019 — Lists
 
-A list is an ordered collection that permits duplicates. Kotlin separates read-only and mutable collection interfaces.
+A list is an ordered collection that keeps duplicates. Kotlin provides read-only and mutable list interfaces.
 
-## Runnable example
+## Read-only list
+
+```kotlin
+val products: List<String> = listOf("Phone", "Case", "Phone")
+
+println(products[0]) // Phone
+println(products.size) // 3
+```
+
+Indices start at zero. Accessing an index outside the list throws an exception.
+
+## Mutable list
+
+```kotlin
+val cart: MutableList<String> = mutableListOf("Phone")
+cart.add("Case")
+println(cart) // [Phone, Case]
+```
+
+Read-only is not the same as immutable:
+
+```kotlin
+val readOnlyCart: List<String> = cart
+cart.add("Charger")
+println(readOnlyCart) // [Phone, Case, Charger]
+```
+
+Both references point to the same mutable object, but mutation is unavailable through the `List` reference.
+
+## Important rules
+
+- Lists preserve order and allow duplicates.
+- `List` exposes reads; `MutableList` also exposes changes.
+- A read-only view can still reflect changes made through another reference.
+- `toMutableList()` creates a new list structure but only shallow-copies elements.
+- Use `getOrNull(index)` when an index may be outside the list.
+
+## Interview questions
+
+**Is a Kotlin `List` always immutable?** No. It is a read-only interface and may view a mutable list.
+
+**Does `toMutableList()` deep-copy elements?** No.
+
+**Are duplicates allowed?** Yes.
+
+## Quick revision
+
+- `listOf` creates a read-only list reference.
+- `mutableListOf` supports additions and removals.
+- Lists are ordered, indexed, and allow duplicates.
+- Read-only does not necessarily mean immutable.
+
+## Source code
 
 [Lists.kt](./Lists.kt)
 
-## Syntax
+## Next lesson
 
-| Syntax | Meaning |
-|---|---|
-| `List<String>` | Exposes read operations. |
-| `MutableList<String>` | Adds mutation operations. |
-| `listOf(...)` | Creates a read-only list reference. |
-| `toMutableList()` | Creates a mutable list copy. |
-| `products[0]` | Index access through `get`. |
-
-## Step-by-step walkthrough
-
-1. `products` retains order and both `Phone` values.
-2. `toMutableList` copies its elements into `cart`.
-3. A charger is added to `cart`.
-4. `readOnlyView` and `cart` refer to the same mutable object, so clearing `cart` makes the view appear empty.
-
-## Expected output
-
-```text
-Phone
-[Phone, Case, Phone, Charger]
-[]
-```
-
-## Important rules and behavior
-
-- Read-only does not guarantee immutable.
-- List indices run from 0 through `lastIndex`.
-- Indexing outside bounds throws at runtime.
-- Copying a collection is shallow; element objects are shared.
-
-## Common mistakes and edge cases
-
-- Claiming `List` is always immutable.
-- Mutating a backing list behind observers.
-- Using index access without checking bounds.
-
-## Kotlin compared with Java
-
-Kotlin exposes read-only and mutable interfaces, while Java's `List` includes mutation methods even when an implementation rejects them.
-
-## Android relevance
-
-Immutable list snapshots work well for UI diffing and observable state. Replace state rather than silently mutating it.
-
-## Interview questions and answers
-
-### 1. Are Kotlin read-only collections immutable?
-
-Not necessarily. They may be views of mutable objects, and their elements may be mutable.
-
-### 2. Does `toMutableList` deep-copy elements?
-
-No. It creates a new collection structure with the same element references.
-
-### 3. Are duplicates allowed?
-
-Yes, and insertion order is part of list semantics.
-
-## Practice
-
-- Predict the output before running the example.
-- Explain every commented compile-time or runtime error.
-- Change one input and explain whether the behavior changes at compile time or runtime.
+020 — Varargs

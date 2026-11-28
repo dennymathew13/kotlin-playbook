@@ -1,68 +1,60 @@
-# Packages and Imports
+# 018 — Packages and Imports
 
-Packages provide namespaces. Imports allow concise references, and aliases resolve collisions or clarify intent.
+Packages group declarations into namespaces. Imports let a file use a declaration without writing its full package name.
 
-## Runnable example
+## Package declaration
 
-[PackagesandImports.kt](./PackagesandImports.kt)
-
-## Syntax
-
-| Syntax | Meaning |
-|---|---|
-| `package lesson018.packagesimports` | Declares the file's namespace. |
-| `import kotlin.math.roundToInt as rounded` | Imports a declaration with a local alias. |
-| `4.6.rounded()` | Calls the imported extension through its alias. |
-
-## Step-by-step walkthrough
-
-1. The compiler resolves `rounded` to `roundToInt`.
-2. The extension rounds 4.6 to the nearest integer.
-3. The program prints 5.
-
-## Expected output
-
-```text
-5
+```kotlin
+package lesson018.packagesimports
 ```
 
-## Important rules and behavior
+The package normally matches the source folder for easy navigation, although the Kotlin compiler does not require that match.
 
-- A package declaration need not match directories, though matching is strongly recommended.
-- Imports affect name resolution; they do not copy code.
-- Kotlin can import functions and properties directly.
-- Wildcard imports do not recursively import subpackages.
+## Imports and aliases
 
-## Common mistakes and edge cases
+```kotlin
+import kotlin.math.roundToInt as rounded
 
-- Using directory structure as proof of a package declaration.
-- Adding unnecessary wildcard imports.
-- Using aliases that make a familiar API harder to recognize.
+fun main() {
+    println(4.6.rounded()) // 5
+}
+```
 
-## Kotlin compared with Java
+`as rounded` gives the imported function a local alias. Aliases are useful when two imports have the same name, but familiar names should not be renamed without a reason.
 
-Kotlin imports top-level declarations directly and supports `as` aliases. Java uses static imports and lacks the same alias syntax.
+## Important rules
 
-## Android relevance
+- The package declaration appears before imports.
+- Imports affect compile-time name lookup; they do not copy code.
+- Kotlin can import top-level classes, functions, and properties.
+- `*` imports declarations from one package, not its subpackages.
+- Avoid unused imports and unclear aliases.
 
-Consistent package structure matters for maintainability, manifests, generated code, and module APIs.
+## Common mistakes
 
-## Interview questions and answers
+- Assuming folder placement alone declares a package.
+- Giving files in the same lesson inconsistent package names.
+- Using wildcard imports when explicit imports are clearer.
 
-### 1. Must folders match a package?
+## Interview questions
 
-No compiler requirement, but matching is a strong convention.
+**Must a package match its directory?** No, but matching is the normal convention.
 
-### 2. What does `as` do?
+**What does `as` do in an import?** It gives that declaration another name within the file.
 
-It gives an imported declaration a different name in that file.
+**Do imports add runtime cost?** No.
 
-### 3. Do imports add runtime cost?
+## Quick revision
 
-No. They are compile-time name-resolution directives.
+- `package` declares a namespace.
+- `import` shortens references.
+- `as` resolves a naming conflict or supplies a clear local name.
+- Keep package and folder organization consistent.
 
-## Practice
+## Source code
 
-- Predict the output before running the example.
-- Explain every commented compile-time or runtime error.
-- Change one input and explain whether the behavior changes at compile time or runtime.
+[PackageImports.kt](./PackageImports.kt)
+
+## Next lesson
+
+019 — Lists

@@ -1,74 +1,66 @@
-# String Templates and Triple-Quoted Strings
+# 009 — String Templates and Triple-Quoted Strings
 
-String templates embed values and expressions directly in text. Triple-quoted raw strings preserve multiline content without normal backslash escaping.
+String templates insert values into text. Triple-quoted strings make multi-line text easier to write.
 
-## Runnable example
+## String templates
 
-[StringTemplatesandTripleQuotedStrings.kt](./StringTemplatesandTripleQuotedStrings.kt)
+Use `$name` for one variable and `${expression}` for an expression:
 
-## Syntax
+```kotlin
+val name = "Maya"
+val lessons = 3
 
-| Syntax | Meaning |
-|---|---|
-| `$user` | Inserts a simple identifier. |
-| `${items + 1}` | Evaluates and inserts an expression. |
-| `"""..."""` | Creates a raw, possibly multiline string. |
-| `trimIndent()` | Removes common leading indentation. |
-| `${'$'}` | Represents a literal dollar sign when used as `${'$'}` in Kotlin source. |
+println("$name completed $lessons lessons.")
+// Maya completed 3 lessons.
 
-## Step-by-step walkthrough
-
-1. The first template computes `items + 1`.
-2. The raw string spans two lines and still supports `$user`.
-3. `${'$'}` produces a literal dollar sign.
-4. `StringOperations.kt` adds immutable string transformations, splitting, searching, JSON-shaped raw text, and `buildString`.
-
-## Expected output
-
-```text
-Maya has 4 items
-GET /users/Maya
-Accept: application/json
-Price: $10
+println("Next lesson: ${lessons + 1}")
+// Next lesson: 4
 ```
 
-## Important rules and behavior
+## Triple-quoted strings
 
-- Strings are immutable; operations return new strings.
-- Raw strings disable backslash escaping but not templates.
-- Use `${...}` for expressions and property access.
-- `trimIndent` is a standard-library operation, not special syntax.
+```kotlin
+val message = """
+    Kotlin keeps line breaks.
+    Triple-quoted strings need no " escaping.
+""".trimIndent()
+```
 
-## Common mistakes and edge cases
+Triple-quoted strings preserve line breaks and treat backslashes as ordinary characters. `trimIndent()` removes the shared leading indentation.
 
-- Assuming raw strings disable `$` interpolation.
-- Using templates for localized Android UI text.
-- Forgetting braces around a nontrivial expression.
+## Important rules
 
-## Kotlin compared with Java
+- `$variable` inserts a simple name.
+- `${expression}` evaluates and inserts an expression.
+- Triple-quoted strings may span several lines.
+- Escape sequences such as `\n` are not interpreted inside triple quotes.
+- String templates still work inside triple-quoted strings.
 
-Templates replace much string concatenation. Java commonly uses `+`, formatting APIs, or text blocks for multiline text.
+## Common mistakes
 
-## Android relevance
+- Omitting braces around a calculation or member access.
+- Expecting `\n` to create a line break inside a raw string.
+- Forgetting `trimIndent()` when source indentation should not appear.
 
-Templates are good for debugging and internal text; user-visible strings should generally use Android resources and placeholders for localization.
+## Interview questions
 
-## Interview questions and answers
+**When are braces required in a template?** For expressions beyond a simple variable name.
 
-### 1. Are Kotlin strings mutable?
+**What is a raw string?** A triple-quoted string that can span lines and does not process normal escape sequences.
 
-No. Operations such as `replace` return a new string.
+**What does `trimIndent()` do?** It removes common leading indentation from nonblank lines.
 
-### 2. Do raw strings process `\n` as a newline?
+## Quick revision
 
-No; backslash escapes are literal in raw strings.
+- `$name` inserts a variable.
+- `${value + 1}` inserts an expression.
+- `"""..."""` creates a raw multi-line string.
+- `trimIndent()` cleans source indentation.
 
-### 3. How do you insert an expression?
+## Source code
 
-Use `${expression}`.
+[StringTemplates.kt](./StringTemplates.kt)
 
-## Practice
+## Next lesson
 
-- Predict the output before running the example.
-- Explain every commented compile-time or runtime error.
-- Change one input and explain whether the behavior changes at compile time or runtime.
+010 — While Loop

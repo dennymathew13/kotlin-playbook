@@ -1,70 +1,62 @@
-# Default and Named Arguments
+# 007 — Default and Named Arguments
 
-Default arguments make parameters optional, while named arguments document which value belongs to which parameter.
+Default arguments make parameters optional at the call site. Named arguments make calls clearer and allow arguments to be supplied in a different order.
 
-## Runnable example
+## Default argument
 
-[DefaultandNamedArguments.kt](./DefaultandNamedArguments.kt)
+```kotlin
+fun welcome(
+    name: String,
+    greeting: String = "Hello",
+): String = "$greeting, $name!"
 
-## Syntax
-
-| Syntax | Meaning |
-|---|---|
-| `role: String = "viewer"` | Declares a default value. |
-| `name = "Arun"` | Supplies a named argument. |
-| `createUser("Maya")` | Uses defaults for omitted arguments. |
-
-## Step-by-step walkthrough
-
-1. The first call uses both defaults.
-2. The second overrides `active` while retaining the default role.
-3. The third supplies named arguments in a different order.
-
-## Expected output
-
-```text
-Maya (viewer), active=true
-Arun (viewer), active=false
-Lee (admin), active=true
+println(welcome("Denny")) // Hello, Denny!
 ```
 
-## Important rules and behavior
+The default is used only when the caller omits `greeting`.
 
-- Defaults are evaluated when the call is made.
-- Named arguments improve clarity for Boolean and same-typed parameters.
-- After using a named argument, follow the language rules carefully when mixing positional arguments.
-- Renaming a public parameter can break Kotlin callers that use its name.
+## Named arguments
 
-## Common mistakes and edge cases
+```kotlin
+println(welcome(greeting = "Welcome", name = "Maya"))
+// Welcome, Maya!
+```
 
-- Creating many overloads where defaults are clearer.
-- Using positional Boolean arguments that hide meaning.
-- Expecting Java callers to understand Kotlin named arguments.
+Names explain which value belongs to which parameter. They are especially helpful for Boolean values and several arguments of the same type.
 
-## Kotlin compared with Java
+## Important rules
 
-Java has no language-level named/default arguments. Java-facing APIs may need overloads, builders, or `@JvmOverloads` where appropriate.
+- Default values belong in the function declaration.
+- Named arguments use `parameterName = value`.
+- Named arguments may be reordered.
+- After using a named argument, keep later arguments named for clear, valid calls.
+- Changing a public parameter name can break Kotlin callers that use it by name.
 
-## Android relevance
+## Common mistakes
 
-Defaults work well for UI helpers and test fixtures, but avoid functions with a long list of configuration parameters.
+- Repeating default values manually at every call site.
+- Using positional Boolean arguments that hide their meaning.
+- Assuming Java callers can use Kotlin named arguments; Java cannot.
 
-## Interview questions and answers
+## Interview questions
 
-### 1. Can Java use Kotlin default arguments directly?
+**Why use default arguments?** They reduce repetitive overloads and call-site boilerplate.
 
-Not with Kotlin call syntax; expose suitable overloads or a Java-friendly API.
+**Why use named arguments?** They improve readability and allow reordering.
 
-### 2. Are parameter names part of an API?
+**Are parameter names part of a Kotlin source API?** Effectively yes when callers use named arguments.
 
-For Kotlin source callers using named arguments, effectively yes.
+## Quick revision
 
-### 3. Why are named Boolean arguments useful?
+- `value: Type = default` declares a default.
+- Omitted arguments use their defaults.
+- `name = value` is a named argument.
+- Defaults often replace convenience overloads.
 
-`load(forceRefresh = true)` communicates intent better than `load(true)`.
+## Source code
 
-## Practice
+[FunctionArguments.kt](./FunctionArguments.kt)
 
-- Predict the output before running the example.
-- Explain every commented compile-time or runtime error.
-- Change one input and explain whether the behavior changes at compile time or runtime.
+## Next lesson
+
+008 — `if` Expression

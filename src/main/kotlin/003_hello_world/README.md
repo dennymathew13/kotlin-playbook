@@ -1,67 +1,60 @@
-# Hello World
+# 003 — Hello World
 
-A Kotlin program starts from an entry-point function. This smallest example shows a function declaration, a function call, a string literal, and console output.
+A Kotlin/JVM program can start from a top-level `main` function. This first example prints one line to the console.
 
-## Runnable example
+## Program
 
-[HelloWorld.kt](./HelloWorld.kt)
+```kotlin
+fun main() {
+    println("Hello, Kotlin!")
+}
+```
 
-## Syntax
-
-| Syntax | Meaning |
-|---|---|
-| `fun` | Declares a function. |
-| `main` | The conventional JVM entry-point name. |
-| `()` | The function takes no arguments in this example. |
-| `println(...)` | Writes a value followed by a platform line separator. |
-
-## Step-by-step walkthrough
-
-1. The JVM launcher finds `main`.
-2. Execution enters the function body.
-3. `println` receives the string `"Hello, Kotlin!"` and writes it.
-
-## Expected output
+Output:
 
 ```text
 Hello, Kotlin!
 ```
 
-## Important rules and behavior
+## What happens
 
-- `main` is a function name, not a Kotlin keyword.
-- Kotlin does not require an enclosing class in source.
-- Statements execute from top to bottom.
+1. The runtime starts the `main` function.
+2. Statements run from top to bottom.
+3. `println` writes the text and then a line break.
 
-## Common mistakes and edge cases
+## Syntax
 
-- Writing `Main` instead of `main`; names are case-sensitive.
-- Using single quotes for text; single quotes create a `Char`.
+- `fun` declares a function.
+- `main` is the recognized entry-point name.
+- `{}` contains the function body.
+- Double quotes create a string.
+- `println(...)` calls a function.
 
-## Kotlin compared with Java
+## Important rules
 
-Java normally requires `public static void main(String[] args)` inside a class. Kotlin permits a top-level function; on the JVM the compiler generates a file class.
+- Kotlin names are case-sensitive: `main` and `Main` differ.
+- A JVM entry point can be a top-level function; no source class is required.
+- Use double quotes for strings and single quotes for a single `Char`.
 
-## Android relevance
+## Interview questions
 
-Android components are launched by the framework rather than this `main`, but the function and call syntax is the same.
+**Is `main` a Kotlin keyword?** No. It is a specially recognized function name and signature.
 
-## Interview questions and answers
+**Can Kotlin have top-level functions?** Yes.
 
-### 1. Is `main` a keyword?
+**What does `println` return?** `Unit`, because it has no useful result value.
 
-No. `fun` is a keyword; `main` is a specially recognized function name/signature.
+## Quick revision
 
-### 2. What does `println` return?
+- Execution starts at `main`.
+- `fun` declares a function.
+- `println` writes a line.
+- Strings use double quotes.
 
-`Unit`, meaning it performs an action without returning a useful result.
+## Source code
 
-### 3. Can Kotlin have top-level functions?
+[HelloWorld.kt](./HelloWorld.kt)
 
-Yes. On the JVM they compile to static methods in a generated file class.
+## Next lesson
 
-## Practice
-
-- Predict the output before running the example.
-- Explain every commented compile-time or runtime error.
-- Change one input and explain whether the behavior changes at compile time or runtime.
+004 — Variables

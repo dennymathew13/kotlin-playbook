@@ -1,74 +1,64 @@
-# Data Types
+# 005 — Data Types
 
-A type defines which values a name can hold and which operations are valid. The example covers common numeric, character, text, and Boolean types plus explicit numeric conversion.
+A type defines which values a variable can hold and which operations are valid. Kotlin is statically typed, even when the compiler infers a type.
 
-## Runnable example
+## Common types
+
+```kotlin
+val quantity: Int = 3
+val orderId: Long = 9_000_000_000L
+val price: Double = 19.99
+val rating: Float = 4.5F
+val initial: Char = 'K'
+val available: Boolean = true
+val language: String = "Kotlin"
+```
+
+- `Int` and `Long` store whole numbers.
+- `Float` and `Double` store floating-point numbers.
+- `Char` stores one character; `String` stores text.
+- `Boolean` is either `true` or `false`.
+
+Suffixes distinguish some literals: `L` creates a `Long`, and `F` creates a `Float`. Underscores make large numbers readable without changing their value.
+
+## Explicit numeric conversion
+
+Kotlin does not implicitly widen numeric variables:
+
+```kotlin
+val quantity: Int = 3
+val widened: Long = quantity.toLong()
+
+// val invalid: Long = quantity // Compile-time type mismatch
+```
+
+## Important rules
+
+- Type inference still produces a fixed compile-time type.
+- `Double` is the default type for decimal literals.
+- Integer division drops the fractional remainder.
+- Numeric conversion is explicit with functions such as `toLong()`.
+- Floating-point numbers are not suitable for exact money calculations.
+
+## Interview questions
+
+**Why does Kotlin require explicit numeric conversion?** It avoids silent precision and overload-resolution surprises.
+
+**Is inferred code dynamically typed?** No. The compiler determines a static type.
+
+**What is the difference between `Char` and `String`?** `Char` is one character value; `String` is a sequence of characters.
+
+## Quick revision
+
+- Use an appropriate type for the value's range and meaning.
+- `L` marks `Long`; `F` marks `Float`.
+- Convert numbers explicitly.
+- Type inference does not remove type safety.
+
+## Source code
 
 [DataTypes.kt](./DataTypes.kt)
 
-## Syntax
+## Next lesson
 
-| Syntax | Meaning |
-|---|---|
-| `Int / Long` | Signed whole-number types; a `Long` literal commonly uses `L`. |
-| `Float / Double` | Floating-point types; a `Float` literal uses `F`. |
-| `Char / String` | One UTF-16 code unit versus a sequence of characters. |
-| `Boolean` | Either `true` or `false`. |
-| `toLong()` | Performs an explicit numeric conversion. |
-| `_ in numbers` | Digit separators improve readability and do not change the value. |
-
-## Step-by-step walkthrough
-
-1. The explicit annotations document each intended type.
-2. `quantity * price` produces a `Double` because one operand is `Double`.
-3. `quantity.toLong()` explicitly widens the `Int`.
-4. Assigning an `Int` directly to `Long` is rejected.
-
-## Expected output
-
-```text
-K order 9000000000: 59.97, available=true, rating=4.5
-3
-```
-
-## Important rules and behavior
-
-- Kotlin does not implicitly widen numeric variables.
-- Integer division discards the remainder when both operands are integers.
-- `Double` is the default floating-point literal type.
-- On the JVM, Kotlin may use primitives or boxed values depending on context.
-- Floating-point values are unsuitable for exact money calculations.
-
-## Common mistakes and edge cases
-
-- Expecting `Int` to assign automatically to `Long`.
-- Using `Double` for exact currency without understanding rounding.
-- Assuming `Char` is a one-character `String`.
-
-## Kotlin compared with Java
-
-Unlike Java, Kotlin deliberately rejects implicit numeric widening between variables. Kotlin presents types uniformly although JVM bytecode may use primitives.
-
-## Android relevance
-
-Use `Long` for timestamps and large identifiers, `Float` where graphics APIs require it, and exact decimal/integer representations for money.
-
-## Interview questions and answers
-
-### 1. Why does Kotlin reject `val x: Long = intValue`?
-
-Explicit conversion prevents silent precision and overload-resolution surprises.
-
-### 2. Is `Int` always a boxed object on the JVM?
-
-No. Kotlin commonly emits primitive `int`; boxing occurs when required, such as nullable or generic contexts.
-
-### 3. Why can `0.1 + 0.2` be surprising?
-
-Binary floating point cannot represent many decimal fractions exactly.
-
-## Practice
-
-- Predict the output before running the example.
-- Explain every commented compile-time or runtime error.
-- Change one input and explain whether the behavior changes at compile time or runtime.
+006 — Functions

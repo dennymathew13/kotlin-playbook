@@ -1,68 +1,63 @@
-# if Expression
+# 008 — `if` Expression
 
-Kotlin `if` controls execution and can also produce a value, removing the need for a ternary operator.
+`if` chooses code based on a Boolean condition. In Kotlin it is also an expression, so it can directly produce a value.
 
-## Runnable example
+## Basic syntax
 
-[ifExpression.kt](./ifExpression.kt)
+```kotlin
+val score = 82
+val result = if (score >= 80) "Pass" else "Try again"
 
-## Syntax
-
-| Syntax | Meaning |
-|---|---|
-| `if (condition)` | Evaluates a required Boolean condition. |
-| `else` | Provides the alternative branch. |
-| `val x = if (...) a else b` | Assigns the selected branch value. |
-
-## Step-by-step walkthrough
-
-1. `stock > 0` selects `In stock`.
-2. `stock >= 5` is false, so the fee is `40`.
-3. The final template prints both computed values.
-
-## Expected output
-
-```text
-In stock; delivery fee=40
+println(result) // Pass
 ```
 
-## Important rules and behavior
+Because the result is assigned, both the `if` and `else` branches provide a compatible value.
 
-- Conditions must be `Boolean`; Kotlin has no truthy/falsy coercion.
-- When the result is used, every path must produce a compatible value.
-- A branch block evaluates to its last expression.
-- Kotlin has no `condition ? a : b` ternary operator.
+Branches can contain several statements. The final expression is the branch value:
 
-## Common mistakes and edge cases
+```kotlin
+val discount = if (score >= 90) {
+    20
+} else {
+    10
+}
 
-- Omitting `else` when using `if` as a value.
-- Writing Java-style ternary syntax.
-- Putting side effects in a deeply nested expression.
+println(discount) // 10
+```
 
-## Kotlin compared with Java
+## Important rules
 
-Kotlin uses `if` both as control flow and as an expression; Java commonly uses a ternary expression for value selection.
+- The condition must be `Boolean`.
+- Kotlin does not treat numbers or objects as truthy or falsy.
+- When `if` produces a value, an `else` branch is normally required.
+- A block's final expression becomes that branch's value.
+- Use `if` for simple Boolean choices and `when` for many related cases.
 
-## Android relevance
+## Common mistakes
 
-Useful for derived UI values such as labels and enabled state. Prefer readable state derivation over nested conditionals in composables.
+- Writing `if (number)` instead of a Boolean comparison.
+- Forgetting `else` when assigning the result.
+- Adding unnecessary mutable variables instead of using the expression result.
 
-## Interview questions and answers
+## Interview questions
 
-### 1. Why is `else` required in a value-producing `if`?
+**Is `if` an expression in Kotlin?** Yes. It can return a value.
 
-The expression must have a result for every possible path.
+**What is a branch block's value?** Its final expression.
 
-### 2. What is the result of a branch block?
+**Must a condition be Boolean?** Yes.
 
-Its final expression.
+## Quick revision
 
-### 3. Does Kotlin accept `if (1)`?
+- `if (condition) value else otherValue` produces a value.
+- Conditions are strictly Boolean.
+- The selected branch alone runs.
+- Prefer direct assignment from `if` when appropriate.
 
-No. The condition must have type `Boolean`.
+## Source code
 
-## Practice
+[ConditionalExpression.kt](./ConditionalExpression.kt)
 
-- Predict the output before running the example.
-- Explain every commented compile-time or runtime error.
-- Change one input and explain whether the behavior changes at compile time or runtime.
+## Next lesson
+
+009 — String Templates and Triple-Quoted Strings

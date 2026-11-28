@@ -1,71 +1,65 @@
-# in Keyword
+# 012 — `in` Keyword
 
-`in` expresses iteration and membership. Membership is convention-based: `value in container` is translated to a suitable `container.contains(value)` call.
+The `in` keyword is used for membership tests and iteration. It reads naturally: a value is in a collection or a loop visits values in a range.
 
-## Runnable example
+## Membership
 
-[inKeyword.kt](./inKeyword.kt)
+```kotlin
+val allowedRoles = setOf("admin", "editor")
 
-## Syntax
-
-| Syntax | Meaning |
-|---|---|
-| `x in values` | Tests membership. |
-| `x !in values` | Tests non-membership. |
-| `for (x in values)` | Iterates values. |
-| `operator fun ...contains(...)` | Enables custom membership syntax. |
-
-## Step-by-step walkthrough
-
-1. The set contains `admin`.
-2. 11 is not inside the closed range 1-10.
-3. The custom `contains(String)` converts `"7"` and checks the numeric range.
-
-## Expected output
-
-```text
-true
-true
-true
+println("admin" in allowedRoles) // true
+println(11 !in 1..10) // true
 ```
 
-## Important rules and behavior
+- `value in container` checks membership.
+- `value !in container` checks that the value is absent.
 
-- The meaning of `in` depends on context.
-- Membership syntax reverses the apparent receiver: `x in y` calls `y.contains(x)`.
-- A custom operator should preserve unsurprising semantics.
-- `in` later also appears in generic variance declarations.
+For collections and ranges, membership uses their `contains` operation.
 
-## Common mistakes and edge cases
+## Iteration
 
-- Believing `in` only works with ranges.
-- Writing a custom `contains` with surprising side effects.
-- Forgetting that conversion can fail and must be handled.
+```kotlin
+for (number in 1..3) {
+    println(number)
+}
+```
 
-## Kotlin compared with Java
+Output:
 
-Java uses explicit `contains` for membership and enhanced-for syntax for iteration.
+```text
+1
+2
+3
+```
 
-## Android relevance
+Here, `in` separates the loop variable from the values being visited.
 
-Useful for input validation, allowed actions, permission sets, and state-range checks.
+## Important rules
 
-## Interview questions and answers
+- The meaning of `in` depends on context: membership or iteration.
+- `!in` is available for membership, not for loop syntax.
+- Range endpoints created with `..` are included.
+- The checked value's type must be supported by the container's membership operation.
 
-### 1. What does `x in y` call?
+## Interview questions
 
-A suitable `y.contains(x)` operator function.
+**What does `x in values` mean?** It checks whether `values` contains `x`.
 
-### 2. What does `!in` do?
+**What does `!in` mean?** It negates a membership check.
 
-It negates the membership result.
+**Is `in` only for ranges?** No. Collections and other types with a suitable `contains` operation support it.
 
-### 3. Is `in` always membership?
+## Quick revision
 
-No. It also appears in iteration and in generic variance syntax.
+- `in` checks membership.
+- `!in` checks absence.
+- `for (item in values)` iterates.
+- `1..3` includes both endpoints.
 
-## Practice
+## Source code
 
-- Predict the output before running the example.
-- Explain every commented compile-time or runtime error.
-- Change one input and explain whether the behavior changes at compile time or runtime.
+[MembershipAndIteration.kt](./MembershipAndIteration.kt)
+
+## Next lesson
+
+013 — Expressions and Statements

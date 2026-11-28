@@ -1,4 +1,5 @@
-﻿package lesson005.datatypes
+package lesson005.datatypes
+
 fun main() {
     val quantity: Int = 3
     val orderId: Long = 9_000_000_000L
@@ -7,8 +8,11 @@ fun main() {
     val initial: Char = 'K'
     val available: Boolean = true
     val total = quantity * price
+
     println("$initial order $orderId: $total, available=$available, rating=$rating")
+
     val widened: Long = quantity.toLong() // Explicit numeric conversion.
-    println(widened)
+    println(widened) // 3
+
     // val invalid: Long = quantity // Compile-time type mismatch.
 }

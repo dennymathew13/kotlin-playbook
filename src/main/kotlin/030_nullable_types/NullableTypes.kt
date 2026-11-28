@@ -2,193 +2,68 @@ package lesson030.nullabletypes
 
 fun main() {
 
-    // 1. Non-nullable types
-    // By default, Kotlin types cannot hold null.
-
+    // 1. Nullable and non-nullable types
     val language: String = "Kotlin"
+    val name: String? = null
 
-    println(language.length)
+    println(language.length) // 6
+    println(name) // null
 
     // val invalid: String = null
-    // Compile-time error: null is not allowed.
+    // Compile-time error: String cannot hold null.
 
 
-    // 2. Nullable types
-    // Adding ? after a type allows it to hold null.
-
-    val name: String? = null
-    val age: Int? = null
-    val isActive: Boolean? = null
-
-    println(name)
-    println(age)
-    println(isActive)
-
-
-    // 3. Assigning non-nullable to nullable types
-
+    // 2. Assignment rules
     val firstName: String = "Denny"
+    val nullableName: String? = firstName // Allowed
 
-    val nullableName: String? = firstName
-
-    println(nullableName)
-
-    // This is allowed because String? can hold
-    // both String values and null.
+    // val requiredName: String = name
+    // Compile-time error: name could be null.
 
 
-    // 4. Assigning nullable to non-nullable types
+    // 3. Safe call operator (?.)
+    // Returns null if the receiver is null.
 
-    val optionalName: String? = null
+    println(name?.length) // null
 
-    // val requiredName: String = optionalName
-    // Compile-time error: optionalName could be null.
-
-    // The Elvis operator provides a fallback value.
-
-    val requiredName: String =
-        optionalName ?: "Default Name"
-
-    println(requiredName)
+    // println(name.length) // Compile-time error
 
 
-    // 5. Accessing nullable properties
+    // 4. Elvis operator (?:)
+    // Provides a fallback when the value is null.
 
-    val userName: String? = null
+    val displayName: String = name ?: "Default Name"
 
-    // println(userName.length)
-    // Compile-time error: userName could be null.
-
-    // The safe call operator ?. accesses the property
-    // only when the receiver is not null.
-
-    println(userName?.length) // null
+    println(displayName) // Default Name
 
 
-    // 6. Null checks and smart casts
-
+    // 5. Null check and smart casting
     val email: String? = "user@example.com"
 
     if (email != null) {
-
-        // Kotlin knows email is not null inside this block.
-        // The compiler smart-casts email to String.
-
-        println(email.length)
-
-    } else {
-
-        println("Email is unavailable")
+        // Kotlin treats email as a non-nullable String.
+        println(email.length) // 16
     }
 
 
-    // 7. Nullable return values from a Map
+    // 6. Nullable Map results
+    // Map lookup returns String? because a key may not exist.
 
     val map = mapOf(1 to "One")
 
-    val existingValue: String? = map[1]
-    val missingValue: String? = map[2]
-
-    println(existingValue) // One
-    println(missingValue)  // null
-
-    // Map lookup returns a nullable type because
-    // the requested key might not exist.
+    println(map[1]) // One
+    println(map[2]) // null
 
 
-    // 8. Nullable properties in data classes
-
-    val person = Person(
-        name = "John",
-        age = null
-    )
+    // 7. Nullable properties in data classes
+    val person = Person("John", null)
 
     println(person.name) // John
     println(person.age)  // null
-
-    // Name is mandatory.
-    // Age is optional.
-
-
-    // 9. Functions returning nullable values
-
-    val product = findProduct(2)
-
-    println(product) // null
-
-    val productName = findProduct(1)
-
-    println(productName) // Phone
-
-
-    // 10. Nullable function parameters
-
-    printName("Denny")
-    printName(null)
-
-
-    // 11. Nullable collection vs nullable elements
-
-    // The list exists, but its elements may be null.
-
-    val names: List<String?> =
-        listOf("John", null, "David")
-
-    println(names)
-
-    // The list itself may be null,
-    // but its elements cannot be null.
-
-    val products: List<String>? = null
-
-    println(products)
-
-    // Both the list and its elements may be null.
-
-    val optionalNames: List<String?>? =
-        listOf("John", null)
-
-    println(optionalNames)
-
-
-    // 12. Null is different from an empty string
-
-    val missingName: String? = null
-    val emptyName: String = ""
-
-    println(missingName == null) // true
-    println(emptyName.isEmpty()) // true
-
-    // null means no value.
-    // "" means an existing String with zero characters.
 }
 
-
-// A nullable property represents information
-// that may be unavailable.
-
+// Name cannot be null, but age can be null.
 data class Person(
     val name: String,
     val age: Int?
 )
-
-
-// A nullable return type tells callers that
-// the requested result may not exist.
-
-fun findProduct(id: Int): String? {
-    return if (id == 1) "Phone" else null
-}
-
-
-// A nullable parameter accepts both
-// non-null String values and null.
-
-fun printName(name: String?) {
-
-    if (name != null) {
-        println("Name: $name")
-    } else {
-        println("Name is unavailable")
-    }
-}

@@ -1,77 +1,62 @@
-# Extension Functions
+# 024 — Extension Functions
 
-An extension function provides member-like call syntax for an existing type without inheritance, wrapping, or modifying that type.
+An extension function adds convenient call syntax for an existing type without changing or inheriting from that type.
 
-## Runnable example
+## Basic syntax
+
+```kotlin
+class User(val firstName: String, val lastName: String)
+
+fun User.displayName(): String = "$firstName $lastName"
+
+println(User("Maya", "Rao").displayName()) // Maya Rao
+```
+
+`User` is the receiver type. Inside the extension, its visible members can be used directly.
+
+Extensions do not become real class members. They are resolved statically from the receiver's declared type:
+
+```kotlin
+fun Screen.kind() = "Screen"
+fun HomeScreen.kind() = "HomeScreen"
+
+fun describe(screen: Screen) = screen.kind()
+
+println(HomeScreen().kind())    // HomeScreen
+println(describe(HomeScreen())) // Screen
+```
+
+`describe` receives a value declared as `Screen`, so `Screen.kind()` is selected.
+
+## Important rules
+
+- Extensions do not modify the original class.
+- Resolution uses the declared receiver type, not runtime virtual dispatch.
+- A real member with the same applicable signature wins over an extension.
+- An extension cannot access private members of its receiver.
+- Keep extensions small and closely related to their receiver type.
+
+## Interview questions
+
+**Do extensions add methods to a class?** No. They provide member-like call syntax for ordinary functions.
+
+**How are extensions resolved?** Statically, using the receiver's declared type and the functions in scope.
+
+**Member or extension: which wins?** The member.
+
+**Can an extension access private state?** No.
+
+## Quick revision
+
+- Declare one with `fun Type.functionName()`.
+- Call it with `value.functionName()`.
+- Extensions are statically resolved.
+- They do not change the receiver class.
+
+## Source code
 
 [ExtensionFunctions.kt](./ExtensionFunctions.kt)
 
-## Syntax
+## Next lesson
 
-| Syntax | Meaning |
-|---|---|
-| `fun User.displayName()` | Declares `User` as the extension receiver. |
-| `this` | Refers to the receiver when needed. |
-| `value.displayName()` | Calls the extension with member-like syntax. |
-| `fun Screen.kind()` | An extension selected from the declared receiver type. |
-
-## Step-by-step walkthrough
-
-1. `displayName` combines user properties.
-2. `maskEmail` reuses a standard string operation.
-3. `describe` accepts a variable declared as `Screen`.
-4. Static extension resolution therefore chooses `Screen.kind`, even though the object is a `HomeScreen`.
-
-## Expected output
-
-```text
-Maya Rao
-***@example.com
-Screen
-```
-
-## Important rules and behavior
-
-- Extensions do not add members to a class.
-- Resolution is static from the declared receiver type.
-- A real member with the same applicable signature always wins.
-- Extensions can access only members visible to ordinary callers.
-- Nullable receiver extensions are possible with `Type?`.
-
-## Common mistakes and edge cases
-
-- Expecting virtual dispatch like an overridden member.
-- Creating overly broad "utility dumping ground" extensions.
-- Hiding important side effects behind harmless-looking call syntax.
-
-## Kotlin compared with Java
-
-On the JVM, extensions compile to static methods whose receiver is the first parameter. Java calls the generated static method.
-
-## Android relevance
-
-Useful for focused conversions and framework helpers. Keep extensions cohesive, discoverable, and free of hidden lifecycle assumptions.
-
-## Interview questions and answers
-
-### 1. How are extension functions resolved?
-
-Statically, using the declared receiver type and imports/scope.
-
-### 2. Member versus extension with the same signature?
-
-The member wins.
-
-### 3. Can an extension access private members?
-
-No. It has no special access to the receiver's internals.
-
-### 4. Do extensions modify the original class?
-
-No; they are compile-time call syntax over ordinary functions.
-
-## Practice
-
-- Predict the output before running the example.
-- Explain every commented compile-time or runtime error.
-- Change one input and explain whether the behavior changes at compile time or runtime.
+025 — Overloading

@@ -1,62 +1,64 @@
 # Kotlin Playbook
 
-A structured Kotlin/JVM learning and interview reference for Java developers moving toward Android development. The lesson numbering follows the supplied Udemy curriculum.
+A practical Kotlin/JVM learning repository based on the original Udemy course sequence. Each implemented technical lesson uses a small runnable example, concise notes, expected output, common rules, and interview-focused revision.
 
-## Running the examples
+## Build and run
 
-Requirements: JDK 21 and the included Gradle wrapper. Open a Kotlin file in IntelliJ IDEA or Android Studio and run its `main` function.
+Requirements: JDK 21. The Gradle wrapper is included.
 
 ```powershell
-.\gradlew.bat compileKotlin
-.\gradlew.bat test
 .\gradlew.bat build
 ```
 
-On macOS or Linux, use `./gradlew`.
+On macOS or Linux, use `./gradlew build`.
 
-## Documented lessons
+To run an example, open its Kotlin file in IntelliJ IDEA and run its `main` function. Every technical example is independent.
 
-Each implemented lesson includes runnable code, syntax explanations, an execution walkthrough, expected output, edge cases, Java comparisons, Android relevance, and interview questions with answers.
+## Course roadmap
 
-| Lesson | Topic | Notes and examples |
+`Guide` marks non-coding course setup. `Complete` means the lesson has been reviewed and, where technical, has a runnable example. Later lessons remain pending even if draft files are present.
+
+| Lesson | Topic | Status |
 |---:|---|---|
-| 001 | Introduction | [Open](src/main/kotlin/001_introduction/README.md) |
-| 002 | Download and Install IntelliJ IDEA | [Open](src/main/kotlin/002_download_and_install_intellij_idea/README.md) |
-| 003 | Hello World | [Open](src/main/kotlin/003_hello_world/README.md) |
-| 004 | Variables | [Open](src/main/kotlin/004_variables/README.md) |
-| 005 | Data Types | [Open](src/main/kotlin/005_data_types/README.md) |
-| 006 | Functions | [Open](src/main/kotlin/006_functions/README.md) |
-| 007 | Default and Named Arguments | [Open](src/main/kotlin/007_default_named_arguments/README.md) |
-| 008 | if Expression | [Open](src/main/kotlin/008_if_expression/README.md) |
-| 009 | String Templates and Triple-Quoted Strings | [Open](src/main/kotlin/009_string_templates_triple_quoted_strings/README.md) |
-| 010 | While Loop | [Open](src/main/kotlin/010_while_loop/README.md) |
-| 011 | For Loop and Ranges | [Open](src/main/kotlin/011_for_loop_ranges/README.md) |
-| 012 | in Keyword | [Open](src/main/kotlin/012_in_keyword/README.md) |
-| 013 | Expressions and Statements | [Open](src/main/kotlin/013_expressions_statements/README.md) |
-| 014 | Classes | [Open](src/main/kotlin/014_classes/README.md) |
-| 015 | Properties | [Open](src/main/kotlin/015_properties/README.md) |
-| 016 | Constructor | [Open](src/main/kotlin/016_constructor/README.md) |
-| 017 | Visibility Modifiers | [Open](src/main/kotlin/017_visibility_modifiers/README.md) |
-| 018 | Packages and Imports | [Open](src/main/kotlin/018_packages_imports/README.md) |
-| 019 | Lists | [Open](src/main/kotlin/019_lists/README.md) |
-| 020 | Varargs - Variable Argument Lists | [Open](src/main/kotlin/020_varargs/README.md) |
-| 021 | Sets | [Open](src/main/kotlin/021_sets/README.md) |
-| 022 | Maps | [Open](src/main/kotlin/022_maps/README.md) |
-| 023 | Property Accessors | [Open](src/main/kotlin/023_property_accessors/README.md) |
-| 024 | Extension Functions | [Open](src/main/kotlin/024_extension_functions/README.md) |
-| 025 | Overloading | [Open](src/main/kotlin/025_overloading/README.md) |
-| 026 | `when` Expression | [Open](src/main/kotlin/026_when_expression/README.md) |
-| 027 | Enum Classes | [Open](src/main/kotlin/027_enum_classes/README.md) |
-| 028 | Data Classes | [Open](src/main/kotlin/028_data_classes/README.md) |
+| 001 | [Introduction](src/main/kotlin/001_introduction/README.md) | Guide |
+| 002 | [Download and Install IntelliJ IDEA](src/main/kotlin/002_download_and_install_intellij_idea/README.md) | Guide |
+| 003 | [Hello World](src/main/kotlin/003_hello_world/README.md) | Complete |
+| 004 | [Variables](src/main/kotlin/004_variables/README.md) | Complete |
+| 005 | [Data Types](src/main/kotlin/005_data_types/README.md) | Complete |
+| 006 | [Functions](src/main/kotlin/006_functions/README.md) | Complete |
+| 007 | [Default and Named Arguments](src/main/kotlin/007_default_named_arguments/README.md) | Complete |
+| 008 | [`if` Expression](src/main/kotlin/008_if_expression/README.md) | Complete |
+| 009 | [String Templates and Triple-Quoted Strings](src/main/kotlin/009_string_templates_triple_quoted_strings/README.md) | Complete |
+| 010 | [While Loop](src/main/kotlin/010_while_loop/README.md) | Complete |
+| 011 | [For Loops and Ranges](src/main/kotlin/011_for_loop_ranges/README.md) | Complete |
+| 012 | [`in` Keyword](src/main/kotlin/012_in_keyword/README.md) | Complete |
+| 013 | [Expressions and Statements](src/main/kotlin/013_expressions_statements/README.md) | Complete |
+| 014 | [Classes](src/main/kotlin/014_classes/README.md) | Complete |
+| 015 | [Properties](src/main/kotlin/015_properties/README.md) | Complete |
+| 016 | [Constructor](src/main/kotlin/016_constructor/README.md) | Complete |
+| 017 | [Visibility Modifiers](src/main/kotlin/017_visibility_modifiers/README.md) | Complete |
+| 018 | [Packages and Imports](src/main/kotlin/018_packages_imports/README.md) | Complete |
+| 019 | [Lists](src/main/kotlin/019_lists/README.md) | Complete |
+| 020 | [Varargs](src/main/kotlin/020_varargs/README.md) | Complete |
+| 021 | [Sets](src/main/kotlin/021_sets/README.md) | Complete |
+| 022 | [Maps](src/main/kotlin/022_maps/README.md) | Complete |
+| 023 | [Property Accessors](src/main/kotlin/023_property_accessors/README.md) | Complete |
+| 024 | [Extension Functions](src/main/kotlin/024_extension_functions/README.md) | Complete |
+| 025 | [Overloading](src/main/kotlin/025_overloading/README.md) | Complete |
+| 026 | [`when` Expression](src/main/kotlin/026_when_expression/README.md) | Complete |
+| 027 | [Enum Classes](src/main/kotlin/027_enum_classes/README.md) | Complete |
+| 028 | [Data Classes](src/main/kotlin/028_data_classes/README.md) | Complete |
+| 029 | [Destructuring Declarations](src/main/kotlin/029_destructuring_declarations/README.md) | Complete |
+| 030 | [Nullable Types](src/main/kotlin/030_nullable_types/README.md) | Complete |
 
-## Remaining course sequence
+## Pending course lessons
 
-029 Destructuring Declarations · 030 Nullable Types · 031 Safe Calls, Elvis Operator and Non-Null Assertions · 032 Generics · 033 Extension Properties · 034 Scope Functions · 035 Lambdas · 036 Collection Operations · 037 Member References · 038 Higher-Order Functions · 039 Working with Lists · 040 Working with Maps · 041 Working with Sequences · 042 Local Functions · 043 Folding Lists · 044 Interfaces · 045 Secondary Constructors · 046 Inheritance · 047 Abstract Classes · 048 Upcasting and Downcasting · 049 Composition · 050 Class Delegation · 051 Sealed Classes · 052 Nested Classes · 053 Inner Classes · 054 Object · 055 Companion Object · 056 Sealed Interfaces · 057 Exceptions · 058 Catching an Exception · 059 Check Instructions · 060 Unit Testing · 061 Introducing the Project · 062 Tic-Tac-Toe Game · 063 Project Source Code · 064 Tic-Tac-Toe Update · 065 Traditional Asynchronous Programming · 066 Coroutines and Suspension · 067 Coroutine Builders · 068 Jobs · 069 Cancellation · 070 Coroutine Exceptions · 071 Cold Kotlin Flows · 072 Flow Builders · 073 Flow Operators · 074 Flow Error Handling · 075 Hot Kotlin Flows · 076 Hot Flow Sharing Strategies · 077 Compose State vs StateFlow · 078 StateFlow vs SharedFlow · 079 Channels · 080 Final Word.
+- 031–040: null handling, generics, extensions, scope functions, lambdas, collection operations, member references, higher-order functions, and working with lists and maps.
+- 041–050: sequences, local functions, folds, interfaces, constructors, inheritance, abstract classes, casting, composition, and delegation.
+- 051–060: sealed and nested types, objects, companions, exceptions, checks, and unit testing.
+- 061–064: course project lessons.
+- 065–070: asynchronous programming and coroutine fundamentals.
+- 071–079: Kotlin Flow, sharing, and channels.
+- 080: Final Word.
 
-## Supplementary interview roadmap
-
-Future supplementary subjects include equality, smart casts, type aliases, delegated properties, generic variance, inline and reified functions, Java interoperability, JVM annotations, structured concurrency, coroutine synchronization, testing, platform types, and Kotlin/JVM performance.
-
-## Technical scope
-
-The repository distinguishes Kotlin language rules, standard-library contracts, JVM implementation details, and Android-specific guidance. Android frameworks such as Compose, ViewModel, Room, networking, and dependency injection belong in a dedicated application project after the related Kotlin foundations.
+Supplementary subjects after the original course roadmap remain pending and are outside the reviewed 001–030 foundation.

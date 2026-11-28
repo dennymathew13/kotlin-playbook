@@ -1,69 +1,59 @@
-# Properties
+# 015 — Properties
 
-A Kotlin property represents readable state and, for `var`, writable state. It is an accessor abstraction and may or may not use a backing field.
+A property represents an object's readable state. A `val` property is read-only through that property, while a `var` property can also be assigned.
 
-## Runnable example
+## Basic syntax
+
+```kotlin
+class Account(val id: String) {
+    var balance: Int = 0
+}
+```
+
+`id` is initialized by the constructor and has no setter. `balance` starts at zero and can change.
+
+```kotlin
+val account = Account("A-1")
+account.balance += 500
+
+println("${account.id}: ${account.balance}") // A-1: 500
+
+// account.id = "A-2" // Compile-time error
+```
+
+Property syntax hides accessor calls. A property may use compiler-provided accessors or custom ones, which are introduced in lesson 023.
+
+## Important rules
+
+- `val` provides a getter but no setter through that property.
+- `var` provides both a getter and setter.
+- A property is an accessor abstraction, not necessarily a field.
+- A read-only property can still refer to a mutable object.
+- Avoid exposing writable state when callers should not control it.
+
+## Property versus local variable
+
+A property belongs to an object or is declared at top level. A local variable exists inside a function or block.
+
+## Interview questions
+
+**Does every property have a backing field?** No. A later custom getter can compute a result without storage.
+
+**Does `val` make an object immutable?** No. It only removes assignment through that property.
+
+**What is the practical difference between `val` and `var` properties?** `var` has a setter; `val` does not.
+
+## Quick revision
+
+- Properties model state.
+- `val` is read-only through its reference.
+- `var` is assignable.
+- Properties use getter/setter semantics.
+
+## Source code
 
 [Properties.kt](./Properties.kt)
 
-## Syntax
+## Next lesson
 
-| Syntax | Meaning |
-|---|---|
-| `val id` | Read-only property with a getter. |
-| `var balance` | Mutable property with getter and setter. |
-| `account.balance += 500` | Reads, adds, then writes through the property. |
-
-## Step-by-step walkthrough
-
-1. The constructor initializes `id`.
-2. `balance` starts at zero.
-3. The compound assignment changes balance to 500.
-4. Assigning to `id` fails because no setter exists.
-
-## Expected output
-
-```text
-A-1: 500
-```
-
-## Important rules and behavior
-
-- A property is not the same thing as a field.
-- `val` means no setter through that property.
-- A `val` can return a different computed value on each getter call.
-- Public mutable state should preserve class invariants.
-
-## Common mistakes and edge cases
-
-- Calling every property a field.
-- Assuming a `val` value must be deeply immutable.
-- Exposing mutation that should remain private.
-
-## Kotlin compared with Java
-
-Kotlin property syntax often compiles to Java-style getter/setter methods and interoperates with JavaBean conventions.
-
-## Android relevance
-
-Expose read-only state publicly and keep mutable state private where possible, especially in ViewModels.
-
-## Interview questions and answers
-
-### 1. Property versus field?
-
-A property is accessed through getter/setter semantics; a backing field is optional storage.
-
-### 2. Does every property have a backing field?
-
-No. Computed properties can have only a getter.
-
-### 3. Can a `val` change between reads?
-
-Yes, if its custom getter computes from changing data.
-
-## Practice
-
-- Predict the output before running the example.
-- Explain every commented compile-time or runtime error.
-- Change one input and explain whether the behavior changes at compile time or runtime.
+016 — Constructor

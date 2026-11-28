@@ -1,11 +1,14 @@
-﻿package lesson019.lists
+package lesson019.lists
+
 fun main() {
     val products: List<String> = listOf("Phone", "Case", "Phone")
-    val cart: MutableList<String> = products.toMutableList()
-    cart += "Charger"
-    println(products[0])
-    println(cart)
-    val readOnlyView: List<String> = cart
-    cart.clear()
-    println(readOnlyView) // []: read-only does not necessarily mean immutable.
+    println(products[0]) // Phone
+    println(products.size) // 3; lists keep duplicates.
+
+    val cart: MutableList<String> = mutableListOf("Phone")
+    val readOnlyCart: List<String> = cart
+    cart.add("Case")
+    println(readOnlyCart) // [Phone, Case]
+
+    // readOnlyCart.add("Charger") // Compile-time error: List has no add().
 }

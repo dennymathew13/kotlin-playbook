@@ -1,68 +1,60 @@
-# Expressions and Statements
+# 013 — Expressions and Statements
 
-An expression produces a value; a statement performs an action without becoming a value. This distinction explains why Kotlin can assign results from `if`, `when`, `try`, and blocks.
+An expression produces a value. A statement performs an action or declaration but does not produce a value that can be assigned.
 
-## Runnable example
+## Expressions
 
-[ExpressionsandStatements.kt](./ExpressionsandStatements.kt)
+Kotlin's `if` can produce a value:
 
-## Syntax
+```kotlin
+val score = 82
+val grade = if (score >= 80) "A" else "B"
 
-| Syntax | Meaning |
-|---|---|
-| `val grade = if (...) ...` | Uses an `if` expression as an initializer. |
-| `run { ... }` | Executes a block and returns its final expression. |
-| `val next = ...` | A declaration statement inside the block. |
-
-## Step-by-step walkthrough
-
-1. The `if` expression evaluates to `A`.
-2. `run` creates `next` and returns the final string.
-3. Assignment cannot be used as a value, as shown by the commented error.
-
-## Expected output
-
-```text
-A; Next score: 83
+println(grade) // A
 ```
 
-## Important rules and behavior
+The selected branch becomes the value of the whole `if` expression. Both branches are needed when the result is used.
 
+## Statements
+
+Variable declarations and assignments are statements:
+
+```kotlin
+var nextScore = score
+nextScore = 83
+
+// val result = (score = 90) // Compile-time error
+```
+
+Assignment does not return its assigned value. This prevents accidental assignment where a Boolean condition is expected.
+
+## Important rules
+
+- Literals, calculations, and function calls can be expressions.
 - `if`, `when`, and `try` can produce values.
-- Assignments are statements, preventing accidental assignment inside conditions.
-- A block's last expression determines its value.
-- Loops do not produce useful values.
+- Assignments and declarations are statements.
+- Loops do not produce a useful result value.
+- Prefer directly computing a value over creating unnecessary mutable temporary state.
 
-## Common mistakes and edge cases
+## Interview questions
 
-- Trying to chain assignments as in some languages.
-- Forgetting a final expression in a value-producing block.
-- Calling every line an expression.
+**What is an expression?** Code that evaluates to a value.
 
-## Kotlin compared with Java
+**Is assignment an expression in Kotlin?** No.
 
-Kotlin is more expression-oriented. Java historically treats constructs such as `if` and `try` primarily as statements.
+**Can `if` initialize a variable?** Yes, when every path produces the required value.
 
-## Android relevance
+## Quick revision
 
-Expression-oriented state reducers make "input state → output state" transformations concise and testable.
+- Expression: produces a value.
+- Statement: performs an action without a usable value.
+- `if` can be an expression.
+- Assignment is a statement.
 
-## Interview questions and answers
+## Source code
 
-### 1. Is assignment an expression in Kotlin?
+[ExpressionBasics.kt](./ExpressionBasics.kt)
 
-No. It is a statement and cannot be used as a Boolean condition or returned value.
+## Next lesson
 
-### 2. What is a block's value?
-
-The value of its last expression.
-
-### 3. Why is expression-oriented code useful?
-
-It can compute immutable results directly and reduce temporary mutable state.
-
-## Practice
-
-- Predict the output before running the example.
-- Explain every commented compile-time or runtime error.
-- Change one input and explain whether the behavior changes at compile time or runtime.
+014 — Classes

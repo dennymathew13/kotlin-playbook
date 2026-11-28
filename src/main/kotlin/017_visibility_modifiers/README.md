@@ -1,70 +1,64 @@
-# Visibility Modifiers
+# 017 — Visibility Modifiers
 
-Visibility controls which code can use a declaration. Small APIs reduce coupling and protect invariants.
+Visibility modifiers control which code can use a declaration. Keeping implementation details hidden makes APIs smaller and safer to change.
 
-## Runnable example
+## The four modifiers
+
+- `public` — visible everywhere; this is the default.
+- `private` — visible only in the declaring class or file.
+- `protected` — visible in a class and its subclasses; not allowed at top level.
+- `internal` — visible inside the same compilation module.
+
+```kotlin
+internal class Session(private val token: String) {
+    fun maskedToken(): String = "***${token.takeLast(2)}"
+}
+
+private const val DEFAULT_USER = "guest"
+```
+
+`token` is accessible only inside `Session`. The top-level constant is accessible only inside its file.
+
+```kotlin
+println("$DEFAULT_USER: ${Session("abcdef").maskedToken()}")
+// guest: ***ef
+```
+
+## Important rules
+
+- Kotlin declarations are `public` by default.
+- Top-level `private` means file-private.
+- A class member marked `private` is visible only inside that class.
+- `internal` means module-wide, not package-wide.
+- Visibility is an API boundary, not protection for runtime secrets.
+
+## Common mistakes
+
+- Treating `internal` as Java package-private.
+- Trying to use `protected` on a top-level declaration.
+- Making every declaration public without a caller that needs it.
+
+## Interview questions
+
+**What is Kotlin's default visibility?** `public`.
+
+**What does top-level `private` mean?** The declaration is visible only in that file.
+
+**Is `internal` package-private?** No. It covers a compilation module.
+
+**Can a top-level declaration be protected?** No.
+
+## Quick revision
+
+- Start with the narrowest useful visibility.
+- `private` hides implementation details.
+- `internal` shares within a module.
+- `protected` is for class inheritance.
+
+## Source code
 
 [VisibilityModifiers.kt](./VisibilityModifiers.kt)
 
-## Syntax
+## Next lesson
 
-| Syntax | Meaning |
-|---|---|
-| `public` | Visible everywhere; the default. |
-| `private` | Visible within the declaring scope; top-level private is file-private. |
-| `protected` | Visible in a class and subclasses; unavailable at top level. |
-| `internal` | Visible within the same compilation module. |
-
-## Step-by-step walkthrough
-
-1. `Session` is visible within this module.
-2. Its token is private to the class.
-3. `maskedToken` exposes only the final two characters.
-4. `DEFAULT_USER` is visible only in this file.
-
-## Expected output
-
-```text
-guest: ***ef
-```
-
-## Important rules and behavior
-
-- Kotlin has no Java-style package-private default.
-- `internal` is a module boundary, not a runtime security boundary.
-- On JVM, `internal` representation relies on compiler metadata/name handling.
-- Use the narrowest visibility that supports required collaboration.
-
-## Common mistakes and edge cases
-
-- Treating `internal` as package-private.
-- Treating visibility as protection for secrets at runtime.
-- Making everything public "just in case."
-
-## Kotlin compared with Java
-
-Java's default is package-private; Kotlin's default is public. Kotlin `internal` spans a compilation module rather than a package.
-
-## Android relevance
-
-`internal` is useful inside Gradle modules; `private` remains the best choice for implementation details.
-
-## Interview questions and answers
-
-### 1. Is `internal` the same as Java package-private?
-
-No. It is module-wide, independent of package.
-
-### 2. Can a top-level declaration be `protected`?
-
-No; protection is based on class inheritance.
-
-### 3. Is `internal` a security boundary?
-
-No. It is primarily a source/compiler visibility rule.
-
-## Practice
-
-- Predict the output before running the example.
-- Explain every commented compile-time or runtime error.
-- Change one input and explain whether the behavior changes at compile time or runtime.
+018 — Packages and Imports

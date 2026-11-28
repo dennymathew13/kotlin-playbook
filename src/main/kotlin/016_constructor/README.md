@@ -1,71 +1,64 @@
-# Constructor
+# 016 — Constructor
 
-Constructors establish an object's initial state. Kotlin's primary constructor sits in the class header; property initializers and `init` blocks perform initialization and validation.
+A constructor receives the values needed to create an object. Kotlin places the primary constructor in the class header and uses property initializers or `init` blocks for setup.
 
-## Runnable example
+## Constructor parameters and properties
 
-[Constructor.kt](./Constructor.kt)
+```kotlin
+class Order(val id: Int, quantity: Int) {
+    val quantity: Int = quantity
+}
+```
 
-## Syntax
+`id` is a property because it uses `val`. The `quantity` parameter is only an input until the class stores it in a property.
 
-| Syntax | Meaning |
-|---|---|
-| `class Order(val id: Int, quantity: Int)` | Declares a primary constructor; only `id` becomes a property here. |
-| `init { ... }` | Runs during construction. |
-| `takeIf { it > 0 }` | Returns the value only when the predicate is true. |
-| `requireNotNull(...)` | Throws `IllegalArgumentException` when the value is null. |
+## Initialization
 
-## Step-by-step walkthrough
+```kotlin
+init {
+    println("Created order $id")
+}
+```
 
-1. Constructor arguments become available to initializers.
-2. The `quantity` property validates the parameter.
-3. The `init` block prints the creation message.
-4. The constructed object exposes quantity 2.
+```kotlin
+val order = Order(id = 10, quantity = 2)
+println(order.quantity)
+```
 
-## Expected output
+Output:
 
 ```text
 Created order 10
 2
 ```
 
-## Important rules and behavior
+## Important rules
 
-- Property initializers and `init` blocks execute in textual order.
-- Construction should leave an object valid or throw.
-- Primary-constructor parameters without `val`/`var` are not properties.
-- Throwing validation exceptions is a runtime behavior.
+- Add `val` or `var` to a constructor parameter to make it a property directly.
+- Primary-constructor parameters are available to initializers and `init` blocks.
+- Initializers and `init` blocks run in their order in the class body.
+- A primary constructor cannot contain statements directly.
+- Constructors should establish a valid object without long-running work.
 
-## Common mistakes and edge cases
+## Interview questions
 
-- Doing network or long-running work in a constructor.
-- Reading a property before its earlier dependencies are initialized.
-- Confusing a constructor parameter with a stored property.
+**Is every constructor parameter a property?** No. It needs `val` or `var`, or it must be stored separately.
 
-## Kotlin compared with Java
+**Where does primary-constructor logic go?** In property initializers and `init` blocks.
 
-Primary constructors and `init` reduce Java constructor boilerplate. Kotlin also supports secondary constructors when needed.
+**When do `init` blocks run?** During object construction, in their order among property initializers.
 
-## Android relevance
+## Quick revision
 
-Constructor injection is useful for ordinary classes. Framework-created Activities and Fragments must follow Android instantiation/lifecycle constraints.
+- Constructor inputs go in the class header.
+- `val`/`var` creates a property.
+- Use `init` for validation or setup.
+- Keep construction fast and predictable.
 
-## Interview questions and answers
+## Source code
 
-### 1. What executes first: initializer or `init` block?
+[Constructor.kt](./Constructor.kt)
 
-They execute in the order they appear in the class body.
+## Next lesson
 
-### 2. Can a primary constructor contain statements?
-
-Not directly; use property initializers and `init` blocks.
-
-### 3. What happens for quantity zero in this example?
-
-Construction throws `IllegalArgumentException`; no valid `Order` is returned.
-
-## Practice
-
-- Predict the output before running the example.
-- Explain every commented compile-time or runtime error.
-- Change one input and explain whether the behavior changes at compile time or runtime.
+017 — Visibility Modifiers
